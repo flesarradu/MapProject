@@ -5,25 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="MapProject.MainPage">
-
-    <FlexLayout Direction="Column"
-                AlignItems="Center"
-                JustifyContent="SpaceEvenly"
-                BackgroundColor="SkyBlue">
-
-
-        <Entry x:Name="userEntry"
-               Placeholder="Username"/>
-       
-        <Entry x:Name="passwordEntry"
-               Placeholder="Password"
-               IsPassword="True"/>
-        
-        
-        <Button x:Name="loginButton"
-                Text="Login"
-                BackgroundColor="Chocolate"/>
-
-    </FlexLayout>
-
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

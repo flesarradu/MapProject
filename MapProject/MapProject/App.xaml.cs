@@ -8,22 +8,23 @@ namespace MapProject
 {
     public partial class App : Application
     {
+        public AzureService azureService;
         public App()
         {
             InitializeComponent();
-
-            
+            azureService = new AzureService();
         }
 
         protected async override void OnStart()
         {
-            List<User> list = new List<User>();
-            list.Add(new User { Id = "1", Username = "test", Password = "test" });
-            
-            var azureService = new AzureService();
-            //await azureService.InsertUsers(list);
-            var users = await azureService.GetUsers();
-            MainPage = new MainPage();
+            SignUpPage signUp = new SignUpPage(azureService);
+            LoginPage loginPage = new LoginPage(azureService);
+            MainPage = signUp;
+            var logged = await loginPage.Login();
+            if (logged)
+            {
+               MainPage = new MainPage();
+            }
         }
 
         protected override void OnSleep()

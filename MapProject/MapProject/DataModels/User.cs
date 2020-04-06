@@ -7,13 +7,13 @@ using System.Text;
 
 namespace MapProject.DataModels
 {
-    public class User
+    public class Users
     {
         [JsonProperty("id")]
        
         public string Id { get; set; }
         [JsonProperty("user")]
-        public string Username { get; set; }
+        public string User { get; set; }
         [JsonProperty("password")]
         public string Password { get; set; }
 
