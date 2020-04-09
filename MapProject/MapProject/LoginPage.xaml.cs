@@ -27,11 +27,16 @@ namespace MapProject
             registerButton.Clicked += RegisterButton_Clicked;
             buttonClick = new TaskCompletionSource<bool>();
             this.azureService = azureService;
+            //Navigation.PushAsync(new SignUpPage(azureService));
+                        
         }
 
-        private void RegisterButton_Clicked(object sender, EventArgs e)
+        private async void RegisterButton_Clicked(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            
+            await Navigation.PushAsync(new SignUpPage(azureService), true);
+            
+            
         }
 
         public async Task<bool> Login()

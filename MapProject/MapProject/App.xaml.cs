@@ -19,7 +19,7 @@ namespace MapProject
         {
             SignUpPage signUp = new SignUpPage(azureService);
             LoginPage loginPage = new LoginPage(azureService);
-            MainPage = signUp;
+            MainPage = loginPage;
             var logged = await loginPage.Login();
             if (logged)
             {
@@ -34,5 +34,6 @@ namespace MapProject
         protected override void OnResume()
         {
         }
+
     }
 }

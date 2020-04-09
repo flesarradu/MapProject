@@ -40,6 +40,8 @@ namespace MapProject.DataModels
 
             client = new MobileServiceClient(azureUrl);
 
+           
+
             //var path = "map.db";
             //path = path.combine(mobileserviceclient.defaultdatabasepath, path);
 
@@ -51,7 +53,7 @@ namespace MapProject.DataModels
 
             //table = client.GetSyncTable<Users>();
             
-            //userTable = client.GetTable<Users>();
+            userTable = client.GetTable<Users>();
            
             //var results = await userTable.ReadAsync();
 
@@ -94,7 +96,8 @@ namespace MapProject.DataModels
 
         public async Task InsertUser(Users user)
         {
-            await Task.WhenAll(userTable.InsertAsync(user));
+            await Initialize();
+            await userTable.InsertAsync(user);
         }
 
         public async Task<bool> CheckEmail(string email)
