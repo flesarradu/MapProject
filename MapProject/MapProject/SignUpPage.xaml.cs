@@ -24,8 +24,7 @@ namespace MapProject
 
         private async void LoginButton_ClickedAsync(object sender, EventArgs e)
         {
-            // App.Current.MainPage = new NavigationPage(new LoginPage(azureService));
-            App.Current.MainPage = await Navigation.PopAsync();
+            await Navigation.PopAsync();
         }
 
         private async void RegisterButton_Clicked(object sender, EventArgs e)

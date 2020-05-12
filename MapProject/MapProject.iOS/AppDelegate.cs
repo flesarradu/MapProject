@@ -26,7 +26,7 @@ namespace MapProject.iOS
 
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             SQLitePCL.Batteries.Init();
-
+            Xamarin.FormsGoogleMaps.Init("your_google_maps_ios_api_key");
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

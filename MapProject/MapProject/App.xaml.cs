@@ -19,7 +19,8 @@ namespace MapProject
         {
             SignUpPage signUp = new SignUpPage(azureService);
             LoginPage loginPage = new LoginPage(azureService);
-            MainPage = loginPage;
+            MainPage = new NavigationPage(loginPage);
+                    
             var logged = await loginPage.Login();
             if (logged)
             {

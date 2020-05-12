@@ -22,7 +22,6 @@ namespace MapProject.UWP
             this.InitializeComponent();
 
             SQLitePCL.Batteries.Init();
-
             LoadApplication(new MapProject.App());
         }
     }
