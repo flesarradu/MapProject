@@ -12,8 +12,17 @@ using Microsoft.TeamFoundation.Framework.Common;
 namespace MapProject.Droid
 {
     [Activity(Label = "MapProject", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+
+
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        const int RequestLocationId = 0;
+
+        readonly string[] LocationPermissions =
+        {
+             Manifest.Permission.AccessCoarseLocation,
+             Manifest.Permission.AccessFineLocation
+        };
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -52,7 +61,7 @@ namespace MapProject.Droid
             {
                 if (CheckSelfPermission(Manifest.Permission.AccessFineLocation) != Permission.Granted)
                 {
-                    //RequestPermissions(LocationPermissions, RequestLocationId);
+                    RequestPermissions(LocationPermissions, RequestLocationId);
                 }
                 else
                 {

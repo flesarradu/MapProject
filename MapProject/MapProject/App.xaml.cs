@@ -9,6 +9,7 @@ namespace MapProject
     public partial class App : Application
     {
         public AzureService azureService;
+        public List<Cases> cases;
         public App()
         {
             InitializeComponent();
@@ -20,11 +21,11 @@ namespace MapProject
             SignUpPage signUp = new SignUpPage(azureService);
             LoginPage loginPage = new LoginPage(azureService);
             MainPage = new NavigationPage(loginPage);
-                    
+            cases = await azureService.GetCases();        
             var logged = await loginPage.Login();
             if (logged)
             {
-               MainPage = new MainPage();
+               MainPage = new MainPage(cases);
             }
         }
 

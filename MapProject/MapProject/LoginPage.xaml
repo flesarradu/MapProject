@@ -48,7 +48,7 @@
                
                 <Entry x:Name ="userEntry" Grid.Row="1" Placeholder="Email or username" PlaceholderColor="#bababa" FontSize="16"/>
 
-                <Entry x:Name ="passwordEntry" Grid.Row="2" Placeholder="Password" PlaceholderColor="#bababa" FontSize="16"/>
+                <Entry x:Name ="passwordEntry" Grid.Row="2" Placeholder="Password" PlaceholderColor="#bababa" FontSize="16" IsPassword="True"/>
 
                 <Button x:Name ="loginButton" Text="Log In" BackgroundColor="#20a4f3" TextColor="#f6f7f8" HeightRequest="50" VerticalOptions="Start" Grid.Row="3"/>
               

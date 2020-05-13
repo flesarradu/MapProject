@@ -2,14 +2,18 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:googlemaps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
              mc:Ignorable="d"
              x:Class="MapProject.MainPage">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <googlemaps:Map Grid.Row="0" x:Name="map" MyLocationEnabled="True" />
+            <Button Grid.Row="0" Text="Add case" BorderColor="#20a4f3" BorderWidth="1" FontAttributes="Bold" BackgroundColor="#20a4f3" BorderRadius="45" TextColor="#f6f7f8" HorizontalOptions="End" WidthRequest="90" HeightRequest="90" Margin="0,0,20,20" VerticalOptions="End"/>
+         </Grid>
     </ContentPage.Content>
 </ContentPage>

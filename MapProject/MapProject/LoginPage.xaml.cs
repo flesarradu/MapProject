@@ -49,7 +49,6 @@ namespace MapProject
 
         private async void LoginButton_ClickedAsync(object sender, EventArgs e)
         {
-            
             string username = userEntry.Text;   
             string password = passwordEntry.Text;
             var user =  await GetUser(username);
@@ -67,8 +66,6 @@ namespace MapProject
                 }
             }
             
-        }
-
-        
+        }       
     }
 }

@@ -19,7 +19,7 @@ namespace MapProject.DataModels
         MobileServiceClient client { get; set; }
         IMobileServiceSyncTable<Users> table;
         IMobileServiceTable<Users> userTable;
-
+        IMobileServiceTable<Cases> casesTable;
         public AzureService()
         {
             if (client?.SyncContext?.IsInitialized ?? false)
@@ -54,7 +54,7 @@ namespace MapProject.DataModels
             //table = client.GetSyncTable<Users>();
             
             userTable = client.GetTable<Users>();
-           
+            casesTable = client.GetTable<Cases>();
             //var results = await userTable.ReadAsync();
 
            
@@ -62,8 +62,15 @@ namespace MapProject.DataModels
         public async Task<Users> GetUser(string user)
         {
             await Initialize();
-            var users = await client.GetTable<Users>().ReadAsync<Users>($"SELECT * FROM Users WHERE user=`{user}`");
-            return users.FirstOrDefault(x=>x.User.Trim()==user);
+            var User = await userTable.Where(x => x.User == user).ToListAsync();
+            return User.First();
+        }
+
+        public async Task<List<Cases>> GetCases()
+        {
+            await Initialize();
+            List<Cases> cases = await casesTable.ToListAsync();
+            return cases;
         }
 
         public async Task <List<Users>> GetUsers()

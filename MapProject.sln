@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapProject.Android", "MapPr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapProject.iOS", "MapProject\MapProject.iOS\MapProject.iOS.csproj", "{5ADCC157-A690-4333-9B56-E902DDAC35F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapProject", "MapProject\MapProject\MapProject.csproj", "{B7C8A693-B581-47FB-9734-87630B4463B3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapProject", "MapProject\MapProject\MapProject.csproj", "{B7C8A693-B581-47FB-9734-87630B4463B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
