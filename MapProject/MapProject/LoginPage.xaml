@@ -50,7 +50,18 @@
 
                 <Entry x:Name ="passwordEntry" Grid.Row="2" Placeholder="Password" PlaceholderColor="#bababa" FontSize="16" IsPassword="True"/>
 
-                <Button x:Name ="loginButton" Text="Log In" BackgroundColor="#20a4f3" TextColor="#f6f7f8" HeightRequest="50" VerticalOptions="Start" Grid.Row="3"/>
+                <Grid Grid.Row="3">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <CheckBox x:Name="rememberMeCheckBox"  Grid.Column="1" Color="#20a4f3" CheckedChanged="CheckBox_CheckedChanged"/>
+                    <Label Grid.Column="2" Text="Remember me" HorizontalOptions="Start" VerticalOptions="Center"/>
+
+                </Grid>
+             
+                <Button x:Name ="loginButton" Text="Log In" BackgroundColor="#20a4f3" TextColor="#f6f7f8" HeightRequest="50" VerticalOptions="Start" Grid.Row="4"/>
               
                 <Grid Grid.Row="5">
 

@@ -1,5 +1,6 @@
 ﻿using MapProject.DataModels;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -20,6 +21,10 @@ namespace MapProject
         private AzureService azureService;
 
         private bool loggedIn = false;
+
+        private IDictionary<string,object> properties = Application.Current.Properties;
+
+        private bool rememberMe = false;
         public LoginPage(AzureService azureService)
         {
             InitializeComponent();
@@ -28,7 +33,19 @@ namespace MapProject
             buttonClick = new TaskCompletionSource<bool>();
             this.azureService = azureService;
             //Navigation.PushAsync(new SignUpPage(azureService));
-                        
+            string savedUsername = "";
+            string savedPassword = "";
+
+            if (properties.ContainsKey("username") && properties.ContainsKey("password"))
+            {
+                savedUsername = (string)properties["username"];
+                savedPassword = (string)properties["password"];
+                rememberMeCheckBox.IsChecked = true;
+            }
+
+            userEntry.Text = savedUsername;
+            passwordEntry.Text = savedPassword;
+            
         }
 
         private async void RegisterButton_Clicked(object sender, EventArgs e)
@@ -52,12 +69,29 @@ namespace MapProject
             string username = userEntry.Text;   
             string password = passwordEntry.Text;
             var user =  await GetUser(username);
-
             if (user!=null)
             {
                 if (user.Password.Trim() == password)
                 {
                     loggedIn = true;
+                    if (rememberMe)
+                    {
+                        if(properties.ContainsKey("username") && properties.ContainsKey("password"))
+                        {
+                            properties["username"] = user.User.Trim();
+                            properties["password"] = user.Password.Trim();
+                        }
+                        else
+                        {
+                            properties.Add("username", user.User.Trim());
+                            properties.Add("password", user.Password.Trim());
+                        }
+                    }
+                    else
+                    {
+                        properties.Remove("username");
+                        properties.Remove("password");
+                    }
                     buttonClick.SetResult(true);
                 }
                 else
@@ -66,6 +100,11 @@ namespace MapProject
                 }
             }
             
-        }       
+        }
+
+        private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            rememberMe = rememberMeCheckBox.IsChecked;
+        }
     }
 }
