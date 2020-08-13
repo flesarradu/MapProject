@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             x:Class="MapProject.QuestionPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid VerticalOptions="Center" HorizontalOptions="Center">
+                                
+                <Label Grid.Row="1" x:Name="questionLabel"/>
+                <Grid Grid.Row="2" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="checkLabel1" Grid.Row="1" Grid.Column="1"/>
+                    <CheckBox x:Name="checkBox1" Grid.Row="1" Grid.Column="2" CheckedChanged="checkBox1_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel2" Grid.Row="2" Grid.Column="1"/>
+                    <CheckBox x:Name="checkBox2" Grid.Row="2" Grid.Column="2" CheckedChanged="checkBox2_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel3" Grid.Row="3" Grid.Column="1"/>
+                    <CheckBox x:Name="checkBox3" Grid.Row="3" Grid.Column="2" CheckedChanged="checkBox3_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel4" Grid.Row="4" Grid.Column="1"/>
+                    <CheckBox x:Name="checkBox4" Grid.Row="4" Grid.Column="2" CheckedChanged="checkBox4_CheckedChanged"/>
+
+                </Grid>
+
+                <Button Grid.Row="3" x:Name="answerButton" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="Answer" Clicked="answerButton_Clicked"/>
+                
+            </Grid>
+          </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

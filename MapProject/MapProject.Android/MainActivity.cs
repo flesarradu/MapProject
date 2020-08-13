@@ -8,6 +8,7 @@ using Android.Widget;
 using Android.OS;
 using Android;
 using Microsoft.TeamFoundation.Framework.Common;
+using MapProject.DataModels;
 
 namespace MapProject.Droid
 {
@@ -25,6 +26,7 @@ namespace MapProject.Droid
         };
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
@@ -37,7 +39,7 @@ namespace MapProject.Droid
 
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             SQLitePCL.Batteries.Init();
-
+            //StartLocationService("flesar");
             
 
 
@@ -68,6 +70,12 @@ namespace MapProject.Droid
                     // Permissions already granted - display a message.
                 }
             }
+        }
+        public void StartLocationService(string user)
+        {
+            Android.Content.Intent intent = new Android.Content.Intent(this, typeof(BackgroundLocationService));
+            intent.PutExtra("user", user);
+            StartService(intent);
         }
     }
 }

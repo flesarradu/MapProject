@@ -29,6 +29,7 @@ namespace MapProject.UWP
         /// </summary>
         public App()
         {
+            Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
             this.InitializeComponent();
             this.Suspending += OnSuspending;
         }

@@ -25,6 +25,7 @@ namespace MapProject
         private IDictionary<string,object> properties = Application.Current.Properties;
 
         private bool rememberMe = false;
+        private LoginInformation login;
         public LoginPage(AzureService azureService)
         {
             InitializeComponent();
@@ -32,6 +33,7 @@ namespace MapProject
             registerButton.Clicked += RegisterButton_Clicked;
             buttonClick = new TaskCompletionSource<bool>();
             this.azureService = azureService;
+            login = new LoginInformation();
             //Navigation.PushAsync(new SignUpPage(azureService));
             string savedUsername = "";
             string savedPassword = "";
@@ -53,10 +55,11 @@ namespace MapProject
             await Navigation.PushAsync(new SignUpPage(azureService));
         }
 
-        public async Task<bool> Login()
+        public async Task<LoginInformation> Login()
         {
             await buttonClick.Task;
-            return loggedIn;   
+            login.LoggedIn = loggedIn;
+            return login;   
         }
 
         private async Task<Users> GetUser(string username)
@@ -92,6 +95,7 @@ namespace MapProject
                         properties.Remove("username");
                         properties.Remove("password");
                     }
+                    login.User = user;
                     buttonClick.SetResult(true);
                 }
                 else

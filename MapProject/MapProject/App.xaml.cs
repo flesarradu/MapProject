@@ -18,14 +18,15 @@ namespace MapProject
 
         protected async override void OnStart()
         {
-            SignUpPage signUp = new SignUpPage(azureService);
+            
+            //SignUpPage signUp = new SignUpPage(azureService);
             LoginPage loginPage = new LoginPage(azureService);
             MainPage = new NavigationPage(loginPage);
-            cases = await azureService.GetCases();        
+            //cases = await azureService.GetCases();   
             var logged = await loginPage.Login();
-            if (logged)
+            if (logged.LoggedIn)
             {
-               MainPage = new MainPage(cases);
+               MainPage = new NavigationPage(new MainPage(logged.User, azureService));
             }
         }
 

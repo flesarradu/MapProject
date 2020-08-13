@@ -4,7 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="MapProject.SignUpPage">
+             x:Class="MapProject.UserQuestionsPage">
     <ContentPage.Content>
 
         <Grid BackgroundColor="White">
@@ -50,18 +50,13 @@
                     <RowDefinition Height="*"/>
 
                 </Grid.RowDefinitions>
+                
+                <Entry x:Name ="heightEntry" Grid.Row="1" Placeholder="Enter your height" PlaceholderColor="#bababa" FontSize="16"/>
 
-                <Entry x:Name ="userEntry" Grid.Row="1" Placeholder="username" PlaceholderColor="#bababa" FontSize="16"/>
+                <Entry x:Name ="weightEntry" Grid.Row="2" Placeholder="Enter your weight" PlaceholderColor="#bababa" FontSize="16"/>
+                
+                <Picker x:Name="nationalityPicker" Grid.Row="3" FontSize="16" />
 
-                <Entry x:Name ="passwordEntry" Grid.Row="2" Placeholder="Password" PlaceholderColor="#bababa" FontSize="16"/>
-                
-                <Entry x:Name ="confirmPassEntry" Grid.Row="3" Placeholder="Confirm your password" PlaceholderColor="#bababa" FontSize="16"/>
-                
-                <Entry x:Name ="emailEntry" Grid.Row="4" Placeholder="Enter your email adress" PlaceholderColor="#bababa" FontSize="16"/>
-                
-                <Button x:Name="registerButton" Grid.Row="7" Text="Sign Up" VerticalOptions="FillAndExpand" BackgroundColor="#2ec4b6"/>
-                
-                
                 <Grid Grid.Row="8">
 
                     <Grid.ColumnDefinitions>
@@ -82,12 +77,12 @@
 
                 </Grid>
 
-                
+
             </Grid>
             <StackLayout Grid.Row="2" BackgroundColor="#ffffff">
 
                 <Label HeightRequest="1" BackgroundColor="#20a4f"/>
-                <Button x:Name="loginButton" Text="Back to Login" VerticalOptions="FillAndExpand" BackgroundColor="#2ec4b6"/>
+                <Button x:Name="okButton" Text="Done" VerticalOptions="FillAndExpand" BackgroundColor="#2ec4b6" Clicked="okButton_Clicked"/>
 
             </StackLayout>
 

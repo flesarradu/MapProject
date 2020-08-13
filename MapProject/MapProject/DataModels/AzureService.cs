@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -17,9 +18,11 @@ namespace MapProject.DataModels
     public class AzureService
     {
         MobileServiceClient client { get; set; }
-        IMobileServiceSyncTable<Users> table;
-        IMobileServiceTable<Users> userTable;
-        IMobileServiceTable<Cases> casesTable;
+        public IMobileServiceSyncTable<Users> table;
+        public IMobileServiceTable<Users> userTable;
+        public IMobileServiceTable<Cases> casesTable;
+        public IMobileServiceTable<Places> placesTable;
+        public HttpHandler httpHandler;
         public AzureService()
         {
             if (client?.SyncContext?.IsInitialized ?? false)
@@ -27,8 +30,9 @@ namespace MapProject.DataModels
                 return;
             }
             var azureUrl = "https://mapprojecbackend.azurewebsites.net";
-
+            httpHandler = new HttpHandler();
             client = new MobileServiceClient(azureUrl);
+           
         }
         public async Task Initialize()
         {
@@ -55,6 +59,7 @@ namespace MapProject.DataModels
             
             userTable = client.GetTable<Users>();
             casesTable = client.GetTable<Cases>();
+            placesTable = client.GetTable<Places>();
             //var results = await userTable.ReadAsync();
 
            
@@ -64,6 +69,18 @@ namespace MapProject.DataModels
             await Initialize();
             var User = await userTable.Where(x => x.User == user).ToListAsync();
             return User.First();
+        }
+
+        public async Task<int> GetLastIdUser()
+        {
+            await Initialize();
+            var User = await userTable.ToListAsync();
+            return int.Parse(User.Last().Id);
+        }
+
+        public async Task UpdateUserAsync(Users user)
+        {
+           await userTable.UpdateAsync(user);
         }
 
         public async Task<List<Cases>> GetCases()
@@ -104,7 +121,11 @@ namespace MapProject.DataModels
         public async Task InsertUser(Users user)
         {
             await Initialize();
+            int lastId = await GetLastIdUser();
+            user.Id = (lastId + 1).ToString();
+            
             await userTable.InsertAsync(user);
+                
         }
 
         public async Task<bool> CheckEmail(string email)

@@ -30,11 +30,15 @@ namespace MapProject
         private async void RegisterButton_Clicked(object sender, EventArgs e)
         {
             Users newUser = new Users();
-            string email = userEntry.Text;
+            string user = userEntry.Text;
             string password = passwordEntry.Text;
             string reenterPass = confirmPassEntry.Text;
+            string email = emailEntry.Text;
+            //double height = double.Parse(heightEntry.Text);
+            //double weight = double.Parse(weightEntry.Text);
+
             bool ready = true;
-            bool emailExists = await azureService.CheckEmail(email);
+            bool emailExists = await azureService.CheckEmail(user);
             if (emailExists)
             {
                 await DisplayAlert("Problem", "Email already exists, use another adress or login with your email.", "OK");
@@ -50,10 +54,18 @@ namespace MapProject
             if (ready)
             {
                 //fa cont
-                //newUser.Id = ;
-                newUser.User = email;
+                //newUser.Id = "6";
+                newUser.User = user;
                 newUser.Password = password;
-                await azureService.InsertUser(newUser);            
+                newUser.Email = email;
+                //newUser.Height = height;
+                newUser.Height = -1;
+                newUser.Weight = -1;
+                //newUser.Weight = weight;
+                newUser.RiskLevel = -1;
+                await azureService.InsertUser(newUser);
+                await DisplayAlert("Information", "Account created.", "OK");
+                await Navigation.PopAsync();
             }
             else
             {
