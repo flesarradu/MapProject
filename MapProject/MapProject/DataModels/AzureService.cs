@@ -34,6 +34,9 @@ namespace MapProject.DataModels
             client = new MobileServiceClient(azureUrl);
            
         }
+
+       
+
         public async Task Initialize()
         {
             if(client?.SyncContext?.IsInitialized ?? false)
@@ -76,6 +79,12 @@ namespace MapProject.DataModels
             await Initialize();
             var User = await userTable.ToListAsync();
             return int.Parse(User.Last().Id);
+        }
+        public async Task<string> GetLastIdPlace()
+        {
+            await Initialize();
+            var User = await placesTable.ToListAsync();
+            return int.Parse(User.Last().Id+1).ToString();
         }
 
         public async Task UpdateUserAsync(Users user)
@@ -126,6 +135,11 @@ namespace MapProject.DataModels
             
             await userTable.InsertAsync(user);
                 
+        }
+        internal async void InsertPlace(Places placeToAdd)
+        {
+            placeToAdd.Id = await GetLastIdPlace();
+            await placesTable.InsertAsync(placeToAdd);
         }
 
         public async Task<bool> CheckEmail(string email)

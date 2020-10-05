@@ -1,6 +1,8 @@
-﻿using Android.Content;
+﻿using Android;
+using Android.Content;
 using Android.Graphics.Drawables;
 using Android.Locations;
+using Android.Widget;
 using MapProject.DataModels;
 using MapProject.Droid;
 using MapProject.NewFolder;
@@ -51,6 +53,8 @@ namespace MapProject
             var task3 = checkIfHasAnswered_INFO();
             var task2 = checkIfHasAnswered_RISK();
             LoadCases();
+            
+
 
             if (user.RiskLevel > 0)
             {
@@ -222,9 +226,12 @@ namespace MapProject
             return;
         }
 
-        private void Button_Clicked(object sender, EventArgs e)
+        private async void Button_Clicked(object sender, EventArgs e)
         {
-            //
+            //AddLocationPage locationPage = new AddLocationPage(user.Latitude, user.Longitude, azureService);
+            //await Navigation.PushAsync(locationPage);
+            FavouritesPlacesPopUp popUp = new FavouritesPlacesPopUp();
+            await Navigation.PushAsync(popUp);
         }
     }
 }

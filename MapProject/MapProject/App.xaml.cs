@@ -26,7 +26,7 @@ namespace MapProject
             var logged = await loginPage.Login();
             if (logged.LoggedIn)
             {
-               MainPage = new NavigationPage(new MainPage(logged.User, azureService));
+                MainPage = new MasterDetailPage1(logged.User, azureService);
             }
         }
 

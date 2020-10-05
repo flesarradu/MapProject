@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29920.165
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapProject.UWP", "MapProject\MapProject.UWP\MapProject.UWP.csproj", "{0CC7363B-B540-4C32-A1F0-31EDD4A62483}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B7C8A693-B581-47FB-9734-87630B4463B3} = {B7C8A693-B581-47FB-9734-87630B4463B3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MapProject.Android", "MapProject\MapProject.Android\MapProject.Android.csproj", "{F3BC0A19-DEBE-423A-A2D6-AE31CB7BEF29}"
 EndProject

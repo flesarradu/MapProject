@@ -40,10 +40,17 @@ namespace MapProject.Droid
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             SQLitePCL.Batteries.Init();
             //StartLocationService("flesar");
-            
 
 
-            
+            int uiOptions = (int)Window.DecorView.SystemUiVisibility;
+
+            uiOptions |= (int)SystemUiFlags.LowProfile;
+            uiOptions |= (int)SystemUiFlags.Fullscreen;
+            uiOptions |= (int)SystemUiFlags.HideNavigation;
+            uiOptions |= (int)SystemUiFlags.ImmersiveSticky;
+
+            Window.DecorView.SystemUiVisibility = (StatusBarVisibility)uiOptions;
+           
 
 
 

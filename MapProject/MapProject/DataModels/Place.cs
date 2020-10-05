@@ -8,7 +8,7 @@ namespace MapProject.DataModels
     public class Places
     {
         [JsonProperty("id")]
-        int Id { get; set; }
+        public string Id { get; set; }
         [JsonProperty("LocationName")]
         public string LocationName { get; set; }
         [JsonProperty("Latitude")]
