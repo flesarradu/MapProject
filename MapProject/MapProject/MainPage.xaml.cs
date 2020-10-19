@@ -7,6 +7,7 @@ using MapProject.DataModels;
 using MapProject.Droid;
 using MapProject.NewFolder;
 using Plugin.Geolocator;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,7 +42,8 @@ namespace MapProject
         private BitmapDescriptor barberCApp = BitmapDescriptorFactory.FromBundle("barberapp.png");
         private BitmapDescriptor barberCNonApp = BitmapDescriptorFactory.FromBundle("barbernonapp.png");
         public static string ACTION_PROCESS_LOCATION = "XamarinGoogleMapsBackgroundLocation.UPDATE_LOCATION";
-
+        private IDictionary<string, object> properties = Application.Current.Properties;
+        List<int> fav;
         [Obsolete]
         public MainPage(Users user, AzureService azure)
         {
@@ -52,6 +54,7 @@ namespace MapProject
             
             var task3 = checkIfHasAnswered_INFO();
             var task2 = checkIfHasAnswered_RISK();
+            LoadFavList(); 
             LoadCases();
             
 
@@ -73,6 +76,20 @@ namespace MapProject
             //map.CameraMoveStarted += Map_CameraMoveStarted;
             map.CameraChanged += Map_CameraChanged;
 
+        }
+
+        private void LoadFavList()
+        {
+            string fav_s = "";
+            if (properties.ContainsKey("favourites-array"))
+            {
+                fav_s = (string)properties["favourites-array"];
+            }
+            else
+            {
+                fav_s = "1,1,1,1,1,1,1,1,1";
+            }
+            fav = fav_s.Split(',').Select(Int32.Parse).ToList<int>();
         }
 
         private async Task checkIfHasAnswered_INFO()
@@ -119,6 +136,7 @@ namespace MapProject
             }
             else
             {
+                LoadFavList();
                 LoadPlaces();
                 LoadCases();
             }
@@ -128,51 +146,71 @@ namespace MapProject
         private async void LoadPlaces()
         {
             var places = await azureService.placesTable.ToListAsync();
-            foreach(var p in places)
+            foreach (var p in places)
             {
-                BitmapDescriptor pinIcon = restaurantCApp;
-                switch(p.Type)
+                if (fav[getPlaceNumberFromType(p.Type) - 1] == 1)
                 {
-                    case "restaurantapp": { pinIcon = restaurantCApp; break; }
-                    case "restaurantnonapp": { pinIcon = restaurantCNonApp; break; }
-                    case "hospitalapp": { pinIcon = hospitalCApp; break; }
-                    case "hospitalnonapp": { pinIcon = hospitalCNonApp; break; }
-                    case "dentistapp": { pinIcon = dentistCApp; break; }
-                    case "dentistnonapp": { pinIcon = dentistCNonApp; break; }
-                    case "barberapp": { pinIcon = barberCApp; break; }
-                    case "barbernonapp": { pinIcon = barberCNonApp; break; }
-                }
-                Pin pin = new Pin
-                {
-                    Label = p.LocationName,
-                    Position = new Position(p.Latitude, p.Longitude),
-                    Icon = pinIcon,
-                    IsVisible = true
-                };
-                map.Pins.Add(pin);
-            }
-        }
-
-        private async void LoadCases()
-        {
-            var users = await azureService.userTable.ToListAsync();
-            users.Remove(users.Where(x => x.User == user.User).FirstOrDefault());
-            foreach(var u in users)
-            {
-
-                if (u.RiskLevel > 0 && map.CameraPosition.Zoom > 10)
-                {
+                    BitmapDescriptor pinIcon = restaurantCApp;
+                    switch (p.Type)
+                    {
+                        case "restaurantapp": { pinIcon = restaurantCApp; break; }
+                        case "restaurantnonapp": { pinIcon = restaurantCNonApp; break; }
+                        case "hospitalapp": { pinIcon = hospitalCApp; break; }
+                        case "hospitalnonapp": { pinIcon = hospitalCNonApp; break; }
+                        case "dentistapp": { pinIcon = dentistCApp; break; }
+                        case "dentistnonapp": { pinIcon = dentistCNonApp; break; }
+                        case "barberapp": { pinIcon = barberCApp; break; }
+                        case "barbernonapp": { pinIcon = barberCNonApp; break; }
+                    }
                     Pin pin = new Pin
                     {
-                        Label = "Case",
-                        Position = new Position(u.Latitude, u.Longitude),
-                        Icon = (u.RiskLevel>=40)?greenManImage:(u.RiskLevel>=30)?blueManImage:(u.RiskLevel>=20)?redManImage:(u.RiskLevel>=10)?yellowManImage:manImage,
+                        Label = p.LocationName,
+                        Position = new Position(p.Latitude, p.Longitude),
+                        Icon = pinIcon,
                         IsVisible = true
                     };
-                                      
-                     map.Pins.Add(pin);
+                    map.Pins.Add(pin);
                 }
-            }     
+            }
+        }
+        private int getPlaceNumberFromType(string type)
+        {
+            switch (type)
+            {
+                case "restaurantapp": { return 8 ; }
+                case "restaurantnonapp": { return 9; }
+                case "hospitalapp": { return 2;  }
+                case "hospitalnonapp": { return 3;  }
+                case "dentistapp": { return 4;  }
+                case "dentistnonapp": { return 5; }
+                case "barberapp": { return 6;  }
+                case "barbernonapp": { return 7; }
+            }
+            return 0;
+        }
+        private async void LoadCases()
+        {
+            if (fav[0] == 1)
+            {
+                var users = await azureService.userTable.ToListAsync();
+                users.Remove(users.Where(x => x.User == user.User).FirstOrDefault());
+                foreach (var u in users)
+                {
+
+                    if (u.RiskLevel > 0 && map.CameraPosition.Zoom > 10)
+                    {
+                        Pin pin = new Pin
+                        {
+                            Label = "Case",
+                            Position = new Position(u.Latitude, u.Longitude),
+                            Icon = (u.RiskLevel >= 40) ? greenManImage : (u.RiskLevel >= 30) ? blueManImage : (u.RiskLevel >= 20) ? redManImage : (u.RiskLevel >= 10) ? yellowManImage : manImage,
+                            IsVisible = true
+                        };
+
+                        map.Pins.Add(pin);
+                    }
+                }
+            }
         }
 
         private async Task checkIfHasAnswered_RISK()
@@ -231,7 +269,8 @@ namespace MapProject
             //AddLocationPage locationPage = new AddLocationPage(user.Latitude, user.Longitude, azureService);
             //await Navigation.PushAsync(locationPage);
             FavouritesPlacesPopUp popUp = new FavouritesPlacesPopUp();
-            await Navigation.PushAsync(popUp);
+
+            await Navigation.PushPopupAsync(popUp, true);
         }
     }
 }

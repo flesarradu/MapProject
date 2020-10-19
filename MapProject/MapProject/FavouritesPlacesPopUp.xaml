@@ -1,29 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<pages:PopupPage 
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
-    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
-    x:Class="MapProject.FavouritesPlacesPopUp">
-    <!--You can set an animation in the xaml file or in the csharp code behind-->
-    <pages:PopupPage.Animation>
-        <animations:ScaleAnimation 
-            PositionIn="Center"
-            PositionOut="Center"
-            ScaleIn="1.2"
-            ScaleOut="0.8"
-            DurationIn="400"
-            DurationOut="300"
-            EasingIn="SinOut"
-            EasingOut="SinIn"
-            HasBackgroundAnimation="True"/>
-    </pages:PopupPage.Animation>
-    <!--You can use any elements here which are extended from Xamarin.Forms.View-->
-    <StackLayout 
-        VerticalOptions="Center" 
-        HorizontalOptions="Center" 
-        Padding="20, 20, 20, 20">
-        <Label
-            Text="Test"/>
-    </StackLayout>
-</pages:PopupPage>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"  
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"  
+                 CloseWhenBackgroundIsClicked="True"  
+                 x:Class="MapProject.FavouritesPlacesPopUp">
+    <popup:PopupPage.Content>
+        <StackLayout Padding="10"  
+                     BackgroundColor="AliceBlue"  
+                     HorizontalOptions="Center"  
+                     VerticalOptions="Center">
+
+            <Grid VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"/>
+                    <RowDefinition Height="400"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+         
+                <Grid Grid.Row="1" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="100"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="checkLabel1" Grid.Row="1" Grid.Column="1" Text="Person icons" FontSize="Title"/>
+                    <CheckBox x:Name="checkBox1" Grid.Row="1" Grid.Column="2" CheckedChanged="checkBox1_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel2" Grid.Row="2" Grid.Column="1" Text="Hospital" TextColor="Chartreuse" FontSize="Title" HorizontalOptions="FillAndExpand"/>
+                    <CheckBox x:Name="checkBox2" Grid.Row="2" Grid.Column="2" CheckedChanged="checkBox2_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel3" Grid.Row="3" Grid.Column="1" Text="Hospital" TextColor="RED" FontSize="Title"/>
+                    <CheckBox x:Name="checkBox3" Grid.Row="3" Grid.Column="2" CheckedChanged="checkBox3_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel4" Grid.Row="4" Grid.Column="1" Text="Dentist" TextColor="Chartreuse" FontSize="Title"/>
+                    <CheckBox x:Name="checkBox4" Grid.Row="4" Grid.Column="2" CheckedChanged="checkBox4_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel5" Grid.Row="5" Grid.Column="1" Text="Dentist" TextColor="RED" FontSize="Title"/>
+                    <CheckBox x:Name="checkBox5" Grid.Row="5" Grid.Column="2" CheckedChanged="checkBox5_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel6" Grid.Row="6" Grid.Column="1" Text="Barbershop" TextColor="Chartreuse" FontSize="Title"/>
+                    <CheckBox x:Name="checkBox6" Grid.Row="6" Grid.Column="2" CheckedChanged="checkBox6_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel7" Grid.Row="7" Grid.Column="1" Text="Barbershop" TextColor="RED" FontSize="Title"/>
+                    <CheckBox x:Name="checkBox7" Grid.Row="7" Grid.Column="2" CheckedChanged="checkBox7_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel8" Grid.Row="8" Grid.Column="1" Text="Restaurant" TextColor="Chartreuse" FontSize="Title"/>
+                    <CheckBox x:Name="checkBox8" Grid.Row="8" Grid.Column="2" CheckedChanged="checkBox8_CheckedChanged"/>
+
+                    <Label x:Name="checkLabel9" Grid.Row="9" Grid.Column="1" Text="Restaurant" TextColor="RED" FontSize="Title" HorizontalOptions="Start"/>
+                    <CheckBox x:Name="checkBox9" Grid.Row="9" Grid.Column="2" CheckedChanged="checkBox9_CheckedChanged"/>
+
+                </Grid>
+
+                <Button Grid.Row="3" x:Name="answerButton" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="Save" Clicked="answerButton_Clicked"/>
+
+            </Grid>
+        </StackLayout>
+    </popup:PopupPage.Content>
+</popup:PopupPage>  
