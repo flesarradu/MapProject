@@ -32,6 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="PinClickPopUp.xaml.cs">
+      <DependentUpon>PinClickPopUp.xaml</DependentUpon>
+    </Compile>
     <Compile Update="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

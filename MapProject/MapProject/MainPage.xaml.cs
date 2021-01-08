@@ -6,14 +6,17 @@ using Android.Widget;
 using MapProject.DataModels;
 using MapProject.Droid;
 using MapProject.NewFolder;
+using Newtonsoft.Json;
 using Plugin.Geolocator;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 //using Windows.UI.Popups;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
@@ -75,7 +78,35 @@ namespace MapProject
             }
             //map.CameraMoveStarted += Map_CameraMoveStarted;
             map.CameraChanged += Map_CameraChanged;
+            map.PinClicked += Map_PinClicked;
+            map.MapClicked += Map_MapClicked;
+            
+        }
 
+        private async void Map_MapClicked(object sender, MapClickedEventArgs e)
+        {
+            var lat = e.Point.Latitude;
+            var lon = e.Point.Longitude;
+            string s = $"https://maps.googleapis.com/maps/api/place/nearbysearch/json?location={lat},{lon}&radius=10&types=point_of_interest&key=AIzaSyBLRYPf8FWJws_x7jVqmdlP4m9an_qJMz8";
+            using (var client = new HttpClient())
+            {
+                var response = await client.GetStringAsync(s);
+                var result = JsonConvert.DeserializeObject<PlacesApiQueryResponse>(response);
+                if (result.results.Count > 0)
+                {
+                    PinClickPopup popUp = new PinClickPopup(result.results[0].name);
+                    await Navigation.PushPopupAsync(popUp, true);
+                }
+           
+            }
+        }
+
+        private async void Map_PinClicked(object sender, PinClickedEventArgs e)
+        {
+            //e.Handled = true;
+            //var uri = new Uri("http://maps.google.com/maps?daddr=" + e.Pin.Position.Latitude + "," + e.Pin.Position.Longitude);
+            //Task t = Launcher.OpenAsync(uri);
+            //t.Wait();
         }
 
         private void LoadFavList()
@@ -249,7 +280,7 @@ namespace MapProject
 
         public List<Cases> Cases { get; }
 
-        private async Task setGeoPosition(Map map)
+        private async Task setGeoPosition(Xamarin.Forms.GoogleMaps.Map map)
         {
             var locator = CrossGeolocator.Current;
             var position = await locator.GetPositionAsync();
@@ -268,9 +299,55 @@ namespace MapProject
         {
             //AddLocationPage locationPage = new AddLocationPage(user.Latitude, user.Longitude, azureService);
             //await Navigation.PushAsync(locationPage);
-            FavouritesPlacesPopUp popUp = new FavouritesPlacesPopUp();
+            //FavouritesPlacesPopUp popUp = new FavouritesPlacesPopUp();
+        }
+        //GOOGLE PLACES API CLASS
+        public class Location
+        {
+            public double lat { get; set; }
+            public double lng { get; set; }
+        }
 
-            await Navigation.PushPopupAsync(popUp, true);
+        public class Geometry
+        {
+            public Location location { get; set; }
+        }
+
+        public class OpeningHours
+        {
+            public bool open_now { get; set; }
+            public List<object> weekday_text { get; set; }
+        }
+
+        public class Photo
+        {
+            public int height { get; set; }
+            public List<string> html_attributions { get; set; }
+            public string photo_reference { get; set; }
+            public int width { get; set; }
+        }
+
+        public class Result
+        {
+            public Geometry geometry { get; set; }
+            public string icon { get; set; }
+            public string id { get; set; }
+            public string name { get; set; }
+            public OpeningHours opening_hours { get; set; }
+            public List<Photo> photos { get; set; }
+            public string place_id { get; set; }
+            public double rating { get; set; }
+            public string reference { get; set; }
+            public string scope { get; set; }
+            public List<string> types { get; set; }
+            public string vicinity { get; set; }
+        }
+
+        public class PlacesApiQueryResponse
+        {
+            public List<object> html_attributions { get; set; }
+            public List<Result> results { get; set; }
+            public string status { get; set; }
         }
     }
 }

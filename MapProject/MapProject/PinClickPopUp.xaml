@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popup:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"  
+                 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"  
+                 xmlns:popup="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"  
+                 CloseWhenBackgroundIsClicked="True"  
+                 x:Class="MapProject.PinClickPopup">
+    <popup:PopupPage.Content>
+        <StackLayout Padding="10"  
+                     BackgroundColor="AliceBlue"  
+                     HorizontalOptions="Center"  
+                     VerticalOptions="Center">
+
+            <Grid VerticalOptions="FillAndExpand" HorizontalOptions="CenterAndExpand">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="70"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="200"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="300"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Text="PLACE" FontSize="20" TextColor="MediumAquamarine" IsVisible="true" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                <Label Grid.Row="1" Text="Place rating:"/>
+                <Label Grid.Row="1" Text="10" x:Name="labelRating" Margin="80,0,0,0"/>
+                <Label Grid.Row ="2" Text="Rate this place! Your rating:"/>
+                <Label Grid.Row="2" Text="5" x:Name="yourRatingLabel" Margin="180,0,0,0"/>
+                <Slider Grid.Row="3" x:Name="ratingSlider" Minimum="0" Maximum="10" Value="5" ValueChanged="ratingSlider_ValueChanged" MaximumTrackColor="#00FF00" MinimumTrackColor="#FF0000"/>
+                <Button Grid.Row="4" x:Name="rateButton" VerticalOptions="CenterAndExpand" HorizontalOptions="EndAndExpand" Text="Rate" Clicked="rateButton_Clicked"/>
+                <Button Grid.Row="5" x:Name="answerButton" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand" Text="Back" Clicked="answerButton_Clicked"/>
+                
+            </Grid>
+        </StackLayout>
+    </popup:PopupPage.Content>
+</popup:PopupPage>  
