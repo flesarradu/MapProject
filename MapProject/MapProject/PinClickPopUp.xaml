@@ -22,7 +22,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="300"/>
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="0" Text="PLACE" FontSize="20" TextColor="MediumAquamarine" IsVisible="true" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
+                <Label Grid.Row="0" Text="PLACE" x:Name="labelPlaceName" FontSize="20" TextColor="MediumAquamarine" IsVisible="true" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand"/>
                 <Label Grid.Row="1" Text="Place rating:"/>
                 <Label Grid.Row="1" Text="10" x:Name="labelRating" Margin="80,0,0,0"/>
                 <Label Grid.Row ="2" Text="Rate this place! Your rating:"/>

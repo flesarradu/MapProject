@@ -22,6 +22,7 @@ namespace MapProject.DataModels
         public IMobileServiceTable<Users> userTable;
         public IMobileServiceTable<Cases> casesTable;
         public IMobileServiceTable<Places> placesTable;
+        public IMobileServiceTable<Reviews> reviewsTable;
         public HttpHandler httpHandler;
         public AzureService()
         {
@@ -63,15 +64,45 @@ namespace MapProject.DataModels
             userTable = client.GetTable<Users>();
             casesTable = client.GetTable<Cases>();
             placesTable = client.GetTable<Places>();
+            reviewsTable = client.GetTable<Reviews>();
             //var results = await userTable.ReadAsync();
-
-           
         }
         public async Task<Users> GetUser(string user)
         {
             await Initialize();
             var User = await userTable.Where(x => x.User == user).ToListAsync();
             return User.First();
+        }
+        public async Task<Reviews> GetReview(string locationName, string googleId = "")
+        {
+            await Initialize();
+            List<Reviews> reviews = new List<Reviews>();
+            if (googleId != "") //search by googleId
+            {
+                reviews = await reviewsTable.Where(x => x.GoogleId == googleId).ToListAsync();
+            }
+            else //search by LocationName
+            {
+                reviews = await reviewsTable.Where(x => x.Location == locationName).ToListAsync();
+            }
+            int count = 0, sum = 0;
+
+            if (reviews.Count > 0)
+            {
+                foreach (var x in reviews)
+                {
+                    count++;
+                    sum += x.Rating;
+                }
+                Reviews review = reviews[0];
+                review.Rating = sum / count;
+                review.User = "";
+                return review;
+            }
+            else
+            {
+                return null;
+            }
         }
 
         public async Task<int> GetLastIdUser()
@@ -136,6 +167,20 @@ namespace MapProject.DataModels
             await userTable.InsertAsync(user);
                 
         }
+
+        internal async void InsertReview(Reviews review)
+        {
+            await Initialize();
+            int lastId = await GetLastIdReview();
+            review.Id = (lastId + 1).ToString();
+            await reviewsTable.InsertAsync(review);
+        }
+
+        private async Task<int> GetLastIdReview()
+        {
+            return int.Parse((await reviewsTable.Where(x => true).OrderByDescending(x => x.Id).Take(1).ToListAsync()).FirstOrDefault().Id);
+        }
+
         internal async void InsertPlace(Places placeToAdd)
         {
             placeToAdd.Id = await GetLastIdPlace();

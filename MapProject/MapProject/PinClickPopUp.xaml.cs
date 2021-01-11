@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Extensions;
+﻿using MapProject.DataModels;
+using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,23 @@ namespace MapProject
     public partial class PinClickPopup : Rg.Plugins.Popup.Pages.PopupPage
     {
         public string Name;
+        private Reviews review;
+        private AzureService azureService;
         public PinClickPopup(string pinName)
         {
             InitializeComponent();
             Name = pinName;
-            yourRatingLabel.Text = Name;
-
-
+            labelPlaceName.Text = Name;
+            labelRating.Text = review.Rating.ToString();
+            azureService = new AzureService();
+        }
+        public PinClickPopup(Reviews review1)
+        {
+            InitializeComponent();
+            review = review1;
+            labelPlaceName.Text = review.Location;
+            labelRating.Text = review.Rating.ToString();
+            azureService = new AzureService();
         }
         protected override void OnAppearing()
         {
@@ -165,7 +176,9 @@ namespace MapProject
 
         private void rateButton_Clicked(object sender, EventArgs e)
         {
-
+            review.Rating = (int)Math.Round(ratingSlider.Value);
+            azureService.InsertReview(review);
+            
         }
     }
 }

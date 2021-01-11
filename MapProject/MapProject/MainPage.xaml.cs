@@ -94,7 +94,16 @@ namespace MapProject
                 var result = JsonConvert.DeserializeObject<PlacesApiQueryResponse>(response);
                 if (result.results.Count > 0)
                 {
-                    PinClickPopup popUp = new PinClickPopup(result.results[0].name);
+                    var rev = await azureService.GetReview(result.results[0].place_id);
+                    if (rev != null)
+                    {
+                        rev.User = user.User; rev.UserLatitude = user.Latitude; rev.UserLongitude = user.Longitude; rev.Date = DateTime.Now.ToString();
+                    }
+                    else
+                    {
+                        rev = new Reviews { Date = DateTime.Now.ToString(), GoogleId = result.results[0].place_id, Latitude = result.results[0].geometry.location.lat, Longitude = result.results[0].geometry.location.lng, Location = result.results[0].name, Rating = 5, User = user.User, UserLatitude = user.Latitude, UserLongitude = user.Longitude };
+                    }
+                    PinClickPopup popUp = new PinClickPopup(rev);
                     await Navigation.PushPopupAsync(popUp, true);
                 }
            
