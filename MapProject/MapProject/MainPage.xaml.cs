@@ -20,7 +20,6 @@ using Xamarin.Essentials;
 //using Windows.UI.Popups;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
-using Xamarin.Forms.Markup;
 using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
 
@@ -233,7 +232,8 @@ namespace MapProject
             if (fav[0] == 1)
             {
                 var users = await azureService.userTable.ToListAsync();
-                users.Remove(users.Where(x => x.User == user.User).FirstOrDefault());
+                try { users.Remove(users.Where(x => x.User == user.User).FirstOrDefault()); }
+                catch { };
                 foreach (var u in users)
                 {
 
@@ -308,7 +308,11 @@ namespace MapProject
         {
             //AddLocationPage locationPage = new AddLocationPage(user.Latitude, user.Longitude, azureService);
             //await Navigation.PushAsync(locationPage);
-            //FavouritesPlacesPopUp popUp = new FavouritesPlacesPopUp();
+            FavouritesPlacesPopUp popUp = new FavouritesPlacesPopUp();
+            await Navigation.PushAsync(popUp);
+            LoadFavList();
+            LoadPlaces();
+            LoadCases();
         }
         //GOOGLE PLACES API CLASS
         public class Location

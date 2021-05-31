@@ -29,13 +29,13 @@ namespace MapProject.Droid
             Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            
+            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             base.OnCreate(savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
 
-            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+            
 
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             SQLitePCL.Batteries.Init();

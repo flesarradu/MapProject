@@ -34,7 +34,7 @@ namespace MapProject
                 MenuItems = new ObservableCollection<MasterDetailPage1MasterMenuItem>(new[]
                 {
                     new MasterDetailPage1MasterMenuItem { Id = 0, Title = "Map" },
-                    new MasterDetailPage1MasterMenuItem { Id = 1, Title = "Admin Menu"}
+                    new MasterDetailPage1MasterMenuItem { Id = 1, Title = "Profil" }
                     
                 });
             }

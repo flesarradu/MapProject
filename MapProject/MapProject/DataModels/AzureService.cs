@@ -71,7 +71,11 @@ namespace MapProject.DataModels
         {
             await Initialize();
             var User = await userTable.Where(x => x.User == user).ToListAsync();
-            return User.First();
+            try { return User.FirstOrDefault(); }
+            catch
+            {
+                return null;
+            }
         }
         public async Task<Reviews> GetReview(string locationName, string googleId = "")
         {
@@ -178,7 +182,11 @@ namespace MapProject.DataModels
 
         private async Task<int> GetLastIdReview()
         {
-            return int.Parse((await reviewsTable.Where(x => true).OrderByDescending(x => x.Id).Take(1).ToListAsync()).FirstOrDefault().Id);
+            try { return int.Parse((await reviewsTable.Where(x => true).OrderByDescending(x => x.Id).Take(1).ToListAsync()).FirstOrDefault().Id); }
+            catch
+            {
+                return 0;
+            }
         }
 
         internal async void InsertPlace(Places placeToAdd)
@@ -190,9 +198,15 @@ namespace MapProject.DataModels
         public async Task<bool> CheckEmail(string email)
         {
             var users = await client.GetTable<Users>().ReadAsync<Users>($"SELECT * FROM Users WHERE user=`{email}`");
-            var user = users.FirstOrDefault(x => x.User.Trim() == email);
+            Users user = null;
+            try { user = users.FirstOrDefault(x => x.User.Trim() == email); }
+            catch (Exception)
+            {
+                user = null;
+            }
 
-            return user != null ? true : false;
+
+            return user != null;
 
         }
         

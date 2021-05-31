@@ -178,7 +178,8 @@ namespace MapProject
         {
             review.Rating = (int)Math.Round(ratingSlider.Value);
             azureService.InsertReview(review);
-            
+            Task t = DisplayAlert("Review",$"Your review on {review.Location} has been received","Ok!");
+            t.Wait();
         }
     }
 }

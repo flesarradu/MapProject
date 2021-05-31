@@ -32,8 +32,8 @@ namespace MapProject
 
         private void InitializeQuestions()
         {
-            questions.Add(new Question { QuestionText = "Did you have fever?", Answer1 = "37-38", Answer2 = "38-39", Answer3 = "39+", Answer4 = "No", Answer1Risk = 1, Answer2Risk = 5, Answer3Risk = 20, Answer4Risk = 0 });
-            questions.Add(new Question { QuestionText = "Did you have chills?", Answer1 = "Yes", Answer2 = "No", Answer1Risk = 20, Answer2Risk = 0 });
+            questions.Add(new Question { QuestionText = "Do you have a fever?", Answer1 = "37-38", Answer2 = "38-39", Answer3 = "39+", Answer4 = "No", Answer1Risk = 1, Answer2Risk = 5, Answer3Risk = 20, Answer4Risk = 0 });
+            questions.Add(new Question { QuestionText = "Do you have chills?", Answer1 = "Yes", Answer2 = "No", Answer1Risk = 20, Answer2Risk = 0 });
             loadQuestion(currentQuestionId);
         }
 
