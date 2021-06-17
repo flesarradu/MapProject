@@ -18,7 +18,7 @@ using Xamarin.Forms;
 
 namespace MapProject.Droid
 {
-    [Service(Label ="BackgroundLocationService")]
+    [Service(Label = "BackgroundLocationService")]
     public class BackgroundLocationService : Service
     {
         int counter = 0;
@@ -31,7 +31,7 @@ namespace MapProject.Droid
         [return: GeneratedEnum]
         public void debug()
         {
-           
+
         }
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {

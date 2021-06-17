@@ -7,11 +7,9 @@
              x:Class="MapProject.MainPage">
     <ContentPage.Content>
         <Grid>
-
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
             <googlemaps:Map Grid.Row="0" x:Name="map" MyLocationEnabled="True" />
             <Button Grid.Row="0" Text="*" BorderColor="#20a4f3" BorderWidth="1" FontAttributes="Bold" BackgroundColor="#20a4f3" BorderRadius="45" TextColor="#f6f7f8" HorizontalOptions="End" WidthRequest="90" HeightRequest="90" Margin="0,0,20,20" VerticalOptions="End" Clicked="Button_Clicked"/>
          </Grid>

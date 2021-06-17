@@ -1,27 +1,19 @@
-﻿using Android;
-using Android.Content;
-using Android.Graphics.Drawables;
-using Android.Locations;
-using Android.Widget;
+﻿using Android.Content;
 using MapProject.DataModels;
 using MapProject.Droid;
-using MapProject.NewFolder;
 using Newtonsoft.Json;
 using Plugin.Geolocator;
 using Rg.Plugins.Popup.Extensions;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 //using Windows.UI.Popups;
 using Xamarin.Forms;
 using Xamarin.Forms.GoogleMaps;
-using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
+
 
 namespace MapProject
 {
@@ -109,7 +101,7 @@ namespace MapProject
             }
         }
 
-        private async void Map_PinClicked(object sender, PinClickedEventArgs e)
+        private void Map_PinClicked(object sender, PinClickedEventArgs e)
         {
             //e.Handled = true;
             //var uri = new Uri("http://maps.google.com/maps?daddr=" + e.Pin.Position.Latitude + "," + e.Pin.Position.Longitude);

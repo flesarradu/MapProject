@@ -11,6 +11,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 using Java.Lang;
+using Java.Util;
 using MapProject.DataModels;
 using Plugin.Geolocator;
 using Xamarin.Forms;
@@ -28,6 +29,10 @@ namespace MapProject.Droid
             throw new NotImplementedException();
         }
         [return: GeneratedEnum]
+        public void debug()
+        {
+
+        }
         public override StartCommandResult OnStartCommand(Intent intent, [GeneratedEnum] StartCommandFlags flags, int startId)
         {
             Log.Debug("SS", "Location Service Running");

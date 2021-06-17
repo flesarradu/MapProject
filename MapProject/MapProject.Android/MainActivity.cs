@@ -29,14 +29,12 @@ namespace MapProject.Droid
             Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
-            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             base.OnCreate(savedInstanceState);
-            Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
+            //Rg.Plugins.Popup.Popup.Init();
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-
-            
-
+            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+           
             Microsoft.WindowsAzure.MobileServices.CurrentPlatform.Init();
             SQLitePCL.Batteries.Init();
             //StartLocationService("flesar");
@@ -62,6 +60,7 @@ namespace MapProject.Droid
 
             base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+
         protected override void OnStart()
         {
             base.OnStart();
@@ -80,9 +79,9 @@ namespace MapProject.Droid
         }
         public void StartLocationService(string user)
         {
-            Android.Content.Intent intent = new Android.Content.Intent(this, typeof(BackgroundLocationService));
-            intent.PutExtra("user", user);
-            StartService(intent);
+           // Android.Content.Intent intent = new Android.Content.Intent(this, typeof(BackgroundLocationService));
+           // intent.PutExtra("user", user);
+           // StartService(intent);
         }
     }
 }
